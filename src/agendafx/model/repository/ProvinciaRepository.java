@@ -5,6 +5,13 @@
  */
 package agendafx.model.repository;
 
+import agendafx.jdbc.Connector;
+import agendafx.model.domain.Provincia;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,8 +21,33 @@ import java.util.List;
 public class ProvinciaRepository implements iCrudRepository
 {
     @Override
-    public List<?> all() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<?> all() 
+    {
+        List<Provincia> provincias = new ArrayList<>();
+        
+        try
+        {
+            Connection db = new Connector().getConnection();
+            
+            //
+            String query = "SELECT * FROM provincias";
+            PreparedStatement ps = db.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+                Provincia provincia = new Provincia();
+                provincia.setId(rs.getInt("id"));
+                provincia.setNombre(rs.getString("nombre"));
+                
+                provincias.add(provincia);
+            }
+        }
+        catch(SQLException e)
+        {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return provincias;
     }
 
     @Override
@@ -24,8 +56,31 @@ public class ProvinciaRepository implements iCrudRepository
     }
 
     @Override
-    public Object findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object findById(int id)
+    {
+        Provincia provincia = new Provincia();
+        
+        try
+        {
+            Connection db = new Connector().getConnection();
+            
+            //
+            String query = "SELECT * FROM provincias WHERE id = ? LIMIT 1";
+            PreparedStatement ps = db.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+                provincia.setId(rs.getInt("id"));
+                provincia.setNombre(rs.getString("nombre"));
+            }
+        }
+        catch(SQLException e)
+        {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return provincia;
     }
 
     @Override

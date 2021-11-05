@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agendafx.controller.AgendaFXMLController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agendafx.controller.AgendaFXMLController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -54,36 +54,36 @@
             </HBox>
             <TableView fx:id="tbvContactos" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
               <columns>
-                    <TableColumn prefWidth="75.0" text="Número">
+                    <TableColumn minWidth="0.0" prefWidth="-1.0" text="Número">
                         <cellValueFactory>
                             <javafx.scene.control.cell.PropertyValueFactory property="id" />
                         </cellValueFactory>
                     </TableColumn>
                     
-                    <TableColumn prefWidth="92.0" text="Contacto">
+                    <TableColumn prefWidth="160.0" text="Contacto">
                         <cellValueFactory>
-                            <javafx.scene.control.cell.PropertyValueFactory property="nombre" />
+                            <javafx.scene.control.cell.PropertyValueFactory property="contacto" />
                         </cellValueFactory>
                     </TableColumn>
                     
-                    <TableColumn prefWidth="107.0" text="Teléfono">
+                    <TableColumn prefWidth="-1.0" text="Teléfono">
                         <cellValueFactory>
                             <javafx.scene.control.cell.PropertyValueFactory property="telefono" />
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn prefWidth="75.0" text="Email">
+                    <TableColumn prefWidth="-1.0" text="Email">
                         <cellValueFactory>
                             <javafx.scene.control.cell.PropertyValueFactory property="email" />
                         </cellValueFactory>
                     </TableColumn>
                     
-                    <TableColumn prefWidth="75.0" text="Domicilio">
+                    <TableColumn prefWidth="-1.0" text="Domicilio">
                         <cellValueFactory>
-                            <javafx.scene.control.cell.PropertyValueFactory property="direccion" />
+                            <javafx.scene.control.cell.PropertyValueFactory property="domicilio" />
                         </cellValueFactory>
                     </TableColumn>
                     
-                    <TableColumn prefWidth="75.0" text="Notas">
+                    <TableColumn prefWidth="-1.0" sortable="false" text="Notas">
                         <cellValueFactory>
                             <javafx.scene.control.cell.PropertyValueFactory property="notas" />
                         </cellValueFactory>

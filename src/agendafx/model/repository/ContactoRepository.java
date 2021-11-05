@@ -11,7 +11,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import agendafx.jdbc.Connector;
-import agendafx.model.domain.Contacto;
+import agendafx.model.domain.Ciudad;
+import agendafx.model.dto.ContactoDTO;
 import java.sql.SQLException;
 
 /**
@@ -20,16 +21,16 @@ import java.sql.SQLException;
  */
 public class ContactoRepository implements iCrudRepository
 {
-    Connection db; // Objeto que se encarga de conectar a la DB
+    CiudadRepository ciudadRepo = new CiudadRepository();
     
     @Override
     public List<?> all()
     {
-        List<Contacto> contactos = new ArrayList<>();
+        List<ContactoDTO> contactos = new ArrayList<>();
         
         try
         {
-            db = new Connector().getConnection(); // Conectar a la db
+            Connection db = new Connector().getConnection(); // Conectar a la db
             String query = "SELECT * FROM contactos"; // Consulta SQL
             PreparedStatement st = db.prepareStatement(query); // Preparar consulta en memoria
             ResultSet rs = st.executeQuery(); // Ejecutar la consulta SQl y almacenar los datos en memoria
@@ -37,19 +38,22 @@ public class ContactoRepository implements iCrudRepository
             // Recorrer los datos obtenidos
             while(rs.next()) // Mientras haya resultados
             {
+                //
+                Ciudad ciudad = (Ciudad) ciudadRepo.findById(rs.getInt("ciudadId"));
+                
                 // En cada iteracion, crear una insancia de un contacto
                 // con los valores del resultado (rs) actual 
                 // y guardarlo en el array "contactos"
-                Contacto contacto = new Contacto
+                ContactoDTO contacto = new ContactoDTO
                 (
-                    rs.getInt(1),
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(4),
-                    rs.getString(5),
-                    rs.getString(6),
-                    rs.getString(7),
-                    null // Por ahora 
+                    rs.getInt(1), // id
+                    rs.getString(2) + " " + rs.getString(3), // contacto
+                    rs.getString(4), // telefono
+                    rs.getString(5), // email
+                    rs.getString(6) + " / " +
+                            ciudad.getNombre() + ", " +
+                            ciudad.getProvincia().getNombre(),
+                    rs.getString(7) // notas
                 );
                 
                 contactos.add(contacto); // Añadir contacto al array de contactos
@@ -67,11 +71,11 @@ public class ContactoRepository implements iCrudRepository
     @Override
     public List<?> findBy(String criterio)
     {
-        List<Contacto> contactos = new ArrayList<>(); // Array que almacenará los registros
+        List<ContactoDTO> contactos = new ArrayList<>(); // Array que almacenará los registros
         
         try
         {
-            db = new Connector().getConnection(); // Conectar a la db
+            Connection db = new Connector().getConnection(); // Conectar a la db
             //String query = "SELECT * FROM contactos WHERE nombre LIKE '%" + criterio + "%'";  // Consulta SQL con filtro concatenado (no seguro)
             String query = "SELECT * FROM contactos WHERE nombre LIKE ?"; // Consulta SQL parametrizada (segura)
             PreparedStatement st = db.prepareStatement(query); // Preparar la consulta en memoria
@@ -84,19 +88,22 @@ public class ContactoRepository implements iCrudRepository
             
             while(rs.next()) // Mientras haya resultados en la consulta
             {
+                //
+                Ciudad ciudad = (Ciudad) ciudadRepo.findById(rs.getInt("ciudadId"));
+                
                 // En cada iteracion, crear una insancia de un contacto
                 // con los valores del resultado (rs) actual 
                 // y guardarlo en el array "contactos"
-                Contacto contacto = new Contacto
+                ContactoDTO contacto = new ContactoDTO
                 (
-                    rs.getInt(1),
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(4),
-                    rs.getString(5),
-                    rs.getString(6),
-                    rs.getString(7),
-                    null // Por ahora 
+                    rs.getInt(1), // id
+                    rs.getString(2) + " " + rs.getString(3), // contacto
+                    rs.getString(4), // telefono
+                    rs.getString(5), // email
+                    rs.getString(6) + " / " +
+                            ciudad.getNombre() + ", " +
+                            ciudad.getProvincia().getNombre(),
+                    rs.getString(7) // notas
                 );
                 
                 // Añadir contacto creado al array de contactos
