@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package agendafx.model.repository;
 
 import java.sql.Connection;
@@ -11,18 +6,15 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import agendafx.jdbc.Connector;
-import agendafx.model.domain.Ciudad;
 import agendafx.model.dto.ContactoDTO;
 import java.sql.SQLException;
 
 /**
  *
- * @author enzom
+ * author alexander baikalov
  */
 public class ContactoRepository implements iCrudRepository
 {
-    CiudadRepository ciudadRepo = new CiudadRepository();
-    
     @Override
     public List<?> all()
     {
@@ -39,8 +31,7 @@ public class ContactoRepository implements iCrudRepository
             while(rs.next()) // Mientras haya resultados
             {
                 //
-                Ciudad ciudad = (Ciudad) ciudadRepo.findById(rs.getInt("ciudadId"));
-                
+
                 // En cada iteracion, crear una insancia de un contacto
                 // con los valores del resultado (rs) actual 
                 // y guardarlo en el array "contactos"
@@ -50,10 +41,7 @@ public class ContactoRepository implements iCrudRepository
                     rs.getString(2) + " " + rs.getString(3), // contacto
                     rs.getString(4), // telefono
                     rs.getString(5), // email
-                    rs.getString(6) + " / " +
-                            ciudad.getNombre() + ", " +
-                            ciudad.getProvincia().getNombre(),
-                    rs.getString(7) // notas
+                    rs.getString(6) // notas
                 );
                 
                 contactos.add(contacto); // Añadir contacto al array de contactos
@@ -88,9 +76,7 @@ public class ContactoRepository implements iCrudRepository
             
             while(rs.next()) // Mientras haya resultados en la consulta
             {
-                //
-                Ciudad ciudad = (Ciudad) ciudadRepo.findById(rs.getInt("ciudadId"));
-                
+
                 // En cada iteracion, crear una insancia de un contacto
                 // con los valores del resultado (rs) actual 
                 // y guardarlo en el array "contactos"
@@ -100,10 +86,7 @@ public class ContactoRepository implements iCrudRepository
                     rs.getString(2) + " " + rs.getString(3), // contacto
                     rs.getString(4), // telefono
                     rs.getString(5), // email
-                    rs.getString(6) + " / " +
-                            ciudad.getNombre() + ", " +
-                            ciudad.getProvincia().getNombre(),
-                    rs.getString(7) // notas
+                    rs.getString(6) // notas
                 );
                 
                 // Añadir contacto creado al array de contactos
@@ -136,5 +119,18 @@ public class ContactoRepository implements iCrudRepository
     public void deleteById(int id)
     {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void delete(ContactoDTO contacto) {
+        Connection db = new Connector().getConnection();
+        String query = "DELETE FROM contactos WHERE id = ?";
+        try {
+            PreparedStatement st = db.prepareStatement(query);
+            st.setInt(1, contacto.getId());
+            st.executeUpdate();
+            db.close();
+        } catch (SQLException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
     }
 }
