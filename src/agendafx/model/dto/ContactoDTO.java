@@ -7,19 +7,14 @@ public class ContactoDTO
     private String contacto;
     private String email;
     private String telefono;
-    private String domicilio;
     private String notas;
 
-    public ContactoDTO() 
-    {
-    }
 
-    public ContactoDTO(int id, String contacto, String telefono, String email, String domicilio, String notas) {
+    public ContactoDTO(int id, String contacto, String telefono, String email, String notas) {
         this.id = id;
         this.contacto = contacto;
         this.telefono = telefono;
         this.email = email;
-        this.domicilio = domicilio;
         this.notas = notas;
     }
 
@@ -53,14 +48,6 @@ public class ContactoDTO
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public String getDomicilio() {
-        return domicilio;
-    }
-
-    public void setDomicilio(String domicilio) {
-        this.domicilio = domicilio;
     }
 
     public String getNotas() {

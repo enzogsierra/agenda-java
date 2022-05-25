@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package agendafx.model.domain;
 
 /**
  *
- * @author enzom
+ * author alexander baikalov
  */
 public class Contacto 
 {
@@ -16,20 +11,16 @@ public class Contacto
     private String apellido;
     private String telefono;
     private String email;
-    private String direccion;
     private String notas;
-    private Ciudad ciudad;
 
-    public Contacto(int id, String nombre, String apellido, String telefono, String email, String direccion, String notas, Ciudad ciudad) 
+    public Contacto(int id, String nombre, String apellido, String telefono, String email, String notas)
     {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.email = email;
-        this.direccion = direccion;
         this.notas = notas;
-        this.ciudad = ciudad;
     }
     
     // Getters & setters
@@ -73,28 +64,12 @@ public class Contacto
         this.email = email;
     }
 
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
     public String getNotas() {
         return notas;
     }
 
     public void setNotas(String notas) {
         this.notas = notas;
-    }
-
-    public Ciudad getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(Ciudad ciudad) {
-        this.ciudad = ciudad;
     }
 
     @Override

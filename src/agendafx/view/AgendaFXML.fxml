@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="992.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agendafx.controller.AgendaFXMLController">
-   <top>
+   <!--<top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
@@ -28,7 +28,7 @@
           </Menu>
         </menus>
       </MenuBar>
-   </top>
+   </top>-->
    <bottom>
       <HBox prefHeight="50.0" prefWidth="600.0" style="-fx-alignment: center; -fx-spacing: 10px;" BorderPane.alignment="CENTER">
          <children>
@@ -74,12 +74,6 @@
                     <TableColumn prefWidth="-1.0" text="Email">
                         <cellValueFactory>
                             <javafx.scene.control.cell.PropertyValueFactory property="email" />
-                        </cellValueFactory>
-                    </TableColumn>
-                    
-                    <TableColumn prefWidth="-1.0" text="Domicilio">
-                        <cellValueFactory>
-                            <javafx.scene.control.cell.PropertyValueFactory property="domicilio" />
                         </cellValueFactory>
                     </TableColumn>
                     
